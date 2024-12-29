@@ -1,0 +1,13 @@
+sounddevice
+numpy
+faster-whisper
+huggingface-hub==0.24.6
+edge-tts
+dspy
+soundfile
+webrtcvad
+streamlit 
+streamlit-webrtc
+python-dotenv
+pygame
+asyncio
