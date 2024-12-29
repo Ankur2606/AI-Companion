@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AI-Companion
 This is your ai companion who can support in your low low's and high high
 =======
@@ -26,6 +25,16 @@ This repository contains an end-to-end AI Voice Assistant pipeline. The system c
 - **Tunable Parameters:** Adjust pitch, voice type (male/female), and speed of speech synthesis.
 
 ## Installation
+
+### Open Using Daytona  
+
+1. **Install Daytona**: Follow the [Daytona installation guide](https://www.daytona.io/docs/installation/installation/).  
+2. **Create the Workspace**:  
+   ```bash  
+   daytona create <https://github.com/Ankur2606/AI-Companion.git> 
+   ```  
+
+---
 
 ### Prerequisites
 - Python 3.8+
