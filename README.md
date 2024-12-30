@@ -42,7 +42,7 @@ The AI Companion is a cutting-edge, low-latency voice assistant that:
 
 4. Create a workspace for the AI Companion:
    ```bash
-   daytona create https://github.com/Ankur2606/AI-Companion.git
+   daytona create https://github.com/Ankur2606/AI-Companion.git --devcontainer-path=.devcontainer/devcontainer.json
    ```
 
 ---
