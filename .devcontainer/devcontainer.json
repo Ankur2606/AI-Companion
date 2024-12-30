@@ -1,6 +1,6 @@
 {
   "name": "AI Voice Assistant Pipeline",
-  "image": "mcr.microsoft.com/devcontainers/python:3.8",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
