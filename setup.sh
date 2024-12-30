@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install Docker (if not already installed)
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+
 # Create a virtual environment
 python -m venv .venv
 
@@ -10,5 +13,3 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# Run the Streamlit app
-streamlit run main.py
