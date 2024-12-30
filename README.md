@@ -100,12 +100,8 @@ Run the project through Daytona for optimized performance:
 
 ### **Manual Mode**
 
-1. **Real-Time Interaction via Terminal:**
-   ```bash
-   python main.py
-   ```
 
-2. **Web Interface:**
+1. **Web Interface:**
    Launch the Streamlit web app:
    ```bash
    streamlit run main.py
