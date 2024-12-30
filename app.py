@@ -1,10 +1,10 @@
 import streamlit as st
+st.set_page_config(page_title="Voice Assistant", layout="wide")
 import asyncio
-from utils.audio_processing import capture_and_transcribe_audio
+from Models.faster_whisper_stt_tiny import *
 from utils.llm_interaction import generate_llm_response
 from utils.tts_conversion import convert_text_to_speech, play_audio
 
-st.set_page_config(page_title="Voice Assistant", layout="wide")
 
 # Initialize session state for conversation history
 if "conversation_history" not in st.session_state:
@@ -38,39 +38,49 @@ def display_conversation():
     st.markdown(conversation_display)
 
 # Start interaction
+if "audio_recorder" not in st.session_state:
+    st.session_state.audio_recorder = create_audio_recorder()
+
 if st.button("Start Speaking"):
     status_placeholder.text("Listening... 🎙️")
-    image_placeholder=st.image("assets/listening_audio.gif", width=150, caption="Listening...")  # Adjust width as needed
-    # Step 1: Capture and transcribe speech
-    transcribed_text = asyncio.run(capture_and_transcribe_audio())
-    image_placeholder.empty()
-    if not transcribed_text:
-        status_placeholder.text("Please try speaking again.")
-    else:
-        transcription_placeholder.markdown(f"**You said**: {transcribed_text}")
-        status_placeholder.text("Generating response... 🤖")
-        
-        # Step 2: Generate a response from LLM with only the user inputs
-        
-        user_inputs = ' '.join([entry['User'] for entry in st.session_state.conversation_history])
-        response = generate_llm_response(transcribed_text, user_inputs)
-        response_placeholder.markdown(f"**Assistant**: {response}")
+    image_placeholder = st.image("assets/listening_audio.gif", width=150, caption="Listening...")
+    
+    # Start recording for 5 seconds
+    time.sleep(5)  # You might want to adjust this duration
+    
+    # Get the audio data from the browser
+    audio_data = None  # This will be populated by the JavaScript callback
+    
+    if audio_data:
+        transcribed_text = asyncio.run(capture_and_process_browser_audio(audio_data))
+        image_placeholder.empty()
+        if not transcribed_text:
+            status_placeholder.text("Please try speaking again.")
+        else:
+            transcription_placeholder.markdown(f"**You said**: {transcribed_text}")
+            status_placeholder.text("Generating response... 🤖")
+            
+            # Step 2: Generate a response from LLM with only the user inputs
+            
+            user_inputs = ' '.join([entry['User'] for entry in st.session_state.conversation_history])
+            response = generate_llm_response(transcribed_text, user_inputs)
+            response_placeholder.markdown(f"**Assistant**: {response}")
 
-        # Step 3: Convert the response text to speech and play it
-        if pitch >= 0:
-            pitch = f"+{pitch}"
-        if speed >= 0:
-            speed = f"+{speed}"
-        
-        audio_file = asyncio.run(convert_text_to_speech(response, voice=voice, pitch=f"{pitch}Hz", rate=f"{speed}%"))
-        try:
-            play_audio(audio_file)
-        except Exception as e:
-            st.error(f"Error playing audio: {e}")
-        
-        # Update conversation history with both user and assistant responses
-        update_conversation(transcribed_text, response)
-        status_placeholder.text("Interaction completed. Click the button to start again.")
+            # Step 3: Convert the response text to speech and play it
+            if pitch >= 0:
+                pitch = f"+{pitch}"
+            if speed >= 0:
+                speed = f"+{speed}"
+            
+            audio_file = asyncio.run(convert_text_to_speech(response, voice=voice, pitch=f"{pitch}Hz", rate=f"{speed}%"))
+            try:
+                play_audio(audio_file)
+            except Exception as e:
+                st.error(f"Error playing audio: {e}")
+            
+            # Update conversation history with both user and assistant responses
+            update_conversation(transcribed_text, response)
+            status_placeholder.text("Interaction completed. Click the button to start again.")
 
 # Display the conversation history once outside the loop
 display_conversation()
