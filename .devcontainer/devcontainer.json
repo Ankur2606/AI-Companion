@@ -1,21 +1,36 @@
 {
-  "name": "AI Companion Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/python:3.9", 
+  "name": "AI Voice Assistant Pipeline",
+  "image": "mcr.microsoft.com/devcontainers/python:3.8",
   "features": {
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.9"
-    }
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
+  "forwardPorts": [
+    8501
+  ],
   "postCreateCommand": "bash setup.sh",
   "customizations": {
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": ".venv/bin/python",
-        "python.terminal.activateEnvironment": true
+        "python.terminal.activateEnvironment": true,
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.autopep8Path": "/usr/local/bin/autopep8",
+        "python.formatting.blackPath": "/usr/local/bin/black",
+        "python.formatting.yapfPath": "/usr/local/bin/yapf",
+        "python.linting.banditPath": "/usr/local/bin/bandit",
+        "python.linting.flake8Path": "/usr/local/bin/flake8",
+        "python.linting.mypyPath": "/usr/local/bin/mypy",
+        "python.linting.pycodestylePath": "/usr/local/bin/pycodestyle",
+        "python.linting.pydocstylePath": "/usr/local/bin/pydocstyle",
+        "python.linting.pylintPath": "/usr/local/bin/pylint"
       },
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "streetsidesoftware.code-spell-checker",
+        "njpwerner.autodocstring",
+        "ms-toolsai.jupyter"
       ]
     }
   }
