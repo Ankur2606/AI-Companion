@@ -1,22 +1,16 @@
 {
   "name": "AI Voice Assistant Pipeline",
   "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/rust:1": {}
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
   "forwardPorts": [
     8501
   ],
-  "postCreateCommand": "bash setup.sh",
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": ".venv/bin/python",
-        "python.terminal.activateEnvironment": true,
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true,
         "python.formatting.autopep8Path": "/usr/local/bin/autopep8",
@@ -37,5 +31,6 @@
         "ms-toolsai.jupyter"
       ]
     }
-  }
+  },
+  "postCreateCommand": "pip install -r requirements.txt"
 }
