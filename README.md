@@ -4,7 +4,7 @@ Your AI companion to support you during your lows and highs, providing intellige
 ---
 
 ## **Overview**  
-The AI Companion is a cutting-edge, low-latency voice assistant that:
+The AI Companion is a low-latency voice assistant that:
 - Converts voice input to text using OpenAI's Whisper.  
 - Processes text using Hugging Face's Large Language Model (LLM).  
 - Converts responses back to speech with Edge-TTS.  
@@ -45,12 +45,18 @@ The AI Companion is a cutting-edge, low-latency voice assistant that:
    daytona create https://github.com/Ankur2606/AI-Companion.git --devcontainer-path=.devcontainer/devcontainer.json
    ```
 
+5. Ensure dependencies are installed (if not already present):
+   ```bash
+   apt-get update && apt-get install -y portaudio19-dev python3-pyaudio
+   pip install black pylint autopep8 yapf bandit flake8 mypy pycodestyle pydocstyle
+   ```
+
 ---
 
 ### **Manual Setup**
 
 #### **Prerequisites**
-- Python 3.8+  
+- Python 3.11+  
 - Git  
 - Hugging Face API Token  
 
@@ -61,24 +67,39 @@ The AI Companion is a cutting-edge, low-latency voice assistant that:
    cd AI-Companion
    ```
 
-2. **Set Up a Virtual Environment:**
+2. **Install System Dependencies (if not available):**
+   ```bash
+   sudo apt-get update && sudo apt-get install -y portaudio19-dev python3-pyaudio
+   ```
+
+3. **Set Up a Virtual Environment:**
    ```bash
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
-3. **Install Dependencies:**
+4. **Install Development Dependencies:**
+   ```bash
+   pip install black pylint autopep8 yapf bandit flake8 mypy pycodestyle pydocstyle
+   ```
+
+5. **Install Project Dependencies:**
    ```bash
    pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
-4. **Configure Hugging Face Token:**
+6. **Configure Hugging Face Token:**
    - Create an account at [Hugging Face](https://huggingface.co/join) and generate an API token.
    - Set the token as an environment variable:
      ```bash
      export HUGGINGFACE_API_TOKEN=your_token  # On Windows: set HUGGINGFACE_API_TOKEN=your_token
      ```
+
+7. **Run the Application:**
+   ```bash
+   streamlit run app.py
+   ```
 
 ---
 
@@ -100,11 +121,10 @@ Run the project through Daytona for optimized performance:
 
 ### **Manual Mode**
 
-
 1. **Web Interface:**
    Launch the Streamlit web app:
    ```bash
-   streamlit run main.py
+   streamlit run app.py
    ```
 
 ---
@@ -134,4 +154,3 @@ We welcome contributions! Please feel free to:
 
 ## **License**
 This project is licensed under the [MIT License](LICENSE).
-
